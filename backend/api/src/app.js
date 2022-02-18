@@ -1,10 +1,3 @@
-/**
- * Arquivo: app.js
- * Descrição: arquivo responsável por toda a configuração da aplicação.
- * Data: 02/03/2020
- * Author: Glaucia Lemos
- */
-
 const express = require('express');
 const cors = require('cors');
 

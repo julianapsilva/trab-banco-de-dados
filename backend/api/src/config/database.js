@@ -1,9 +1,3 @@
-/**
- * Arquivo: config/database.js
- * Descrição: arquivo responsável pelas 'connectionStrings da aplicação: PostgreSQL.
- * Data: 04/03/2020
- * Author: Glaucia Lemos
- */
 
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
