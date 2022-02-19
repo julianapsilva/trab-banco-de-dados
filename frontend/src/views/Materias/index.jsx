@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.css'
+import Modal from '../Modal'
 
 export const Materias = () => {
   const dados = [
@@ -16,11 +17,12 @@ export const Materias = () => {
 
   return (
     <div className='materias-wrapper'>
+      
       <div className='table'>
 
         <div className='header-table'>
           <h2>Lista de matérias</h2>
-          <button>Criar nova</button>
+          <Modal buttonName='Criar nova'/>
         </div>
 
         <table>
