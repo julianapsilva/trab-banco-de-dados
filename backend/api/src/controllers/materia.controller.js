@@ -1,20 +1,19 @@
-
 const db = require('../config/database');
 
-// ==> Método responsável por criar um novo 'Product':
-exports.createProduct = async (req, res) => {
-  // const { product_name, quantity, price } = req.body;
-  // const response = await db.query(
-  //   'INSERT INTO products (product_name, quantity, price) VALUES ($1, $2, $3)',
-  //   [product_name, quantity, price],
-  // );
+// ==> Método responsável por criar um novo 'Materia':
+exports.createMateria = async (req, res) => {
+  const { nome, cargahoraria, descricao, planodecurso } = req.body;
+  const response = await db.query(
+    'INSERT INTO materia (id, nome, cargahoraria, descricao, planodecurso) VALUES (DEFAULT, $1, $2, $3, $4)',
+    [nome, cargahoraria, descricao, planodecurso],
+  );
 
-  // res.status(201).send({
-  //   message: 'Product added successfully!',
-  //   body: {
-  //     product: { product_name, quantity, price },
-  //   },
-  // });
+  res.status(201).send({
+    message: 'Materia added successfully!',
+    body: {
+      materia: { nome, cargahoraria, descricao, planodecurso },
+    },
+  });
 };
 
 // ==> Método responsável por listar todas as 'Materias':
@@ -25,35 +24,61 @@ exports.listAllMaterias = async (req, res) => {
   res.status(200).send(response.rows);
 };
 
+// ==> Método responsável por listar todas as 'Materias':
+exports.listAllMateriasCurso = async (req, res) => {
+  const cursoId = parseInt(req.params.idcurso);
+  const response = await db.query(
+    'SELECT m.id, m.nome, m.cargahoraria, m.descricao, m.planodecurso FROM materia m INNER JOIN curso_materia cm ON m.id = cm.idmateria WHERE cm.idcurso = 1',
+  );
+  res.status(200).send(response.rows);
+};
+
 // ==> Método responsável por selecionar 'Materia' pelo 'Id':
 exports.findMateriaById = async (req, res) => {
-  // const productId = parseInt(req.params.id);
-  // const response = await db.query(
-  //   'SELECT * FROM products WHERE productid = $1',
-  //   [productId],
-  // );
-  // res.status(200).send(response.rows);
+  const materiaId = parseInt(req.params.id);
+  const response = await db.query(
+    'SELECT * FROM materia WHERE id = $1',
+    [ materiaId ],
+  );
+  res.status(200).send(response.rows);
 };
 
-// ==> Método responsável por atualizar um 'Product' pelo 'Id':
-exports.updateProductById = async (req, res) => {
-  // const productId = parseInt(req.params.id);
-  // const { product_name, quantity, price } = req.body;
+// ==> Método responsável por atualizar uma 'Matéria' pelo 'Id':
+exports.updateMateriaById = async (req, res) => {
+  const materiaId = parseInt(req.params.id);
+  const { nome, cargahoraria, descricao, planodecurso } = req.body;
 
-  // const response = await db.query(
-  //   'UPDATE products SET product_name = $1, quantity = $2, price = $3 WHERE productId = $4',
-  //   [product_name, quantity, price, productId],
-  // );
+  const response = await db.query(
+    'UPDATE materia SET nome = $1, cargahoraria = $2, descricao = $3, planodecurso = $4 WHERE id = $5',
+    [ nome, cargahoraria, descricao, planodecurso, materiaId ],
+  );
 
-  // res.status(200).send({ message: 'Product Updated Successfully!' });
+  res.status(200).send({ message: 'Materia Updated Successfully!' });
 };
 
-// ==> Método responsável por excluir um 'Product' pelo 'Id':
-exports.deleteProductById = async (req, res) => {
-  // const productId = parseInt(req.params.id);
-  // await db.query('DELETE FROM products WHERE productId = $1', [
-  //   productId,
-  // ]);
+// ==> Método responsável por excluir uma 'Materia' pelo 'Id':
+exports.deleteMateriaById = async (req, res) => {
+  const materiaId = parseInt(req.params.id);
+  await db.query('DELETE FROM materia WHERE id = $1', 
+    [ materiaId ],
+  );
 
-  // res.status(200).send({ message: 'Product deleted successfully!', productId });
+  res.status(200).send({ message: 'Materia deleted successfully!', materiaId });
+};
+
+// ==> Método responsável por criar um novo 'Materia':
+exports.createCursoMateria = async (req, res) => {
+  const materiaId = parseInt(req.params.idmateria);
+  const cursoId = parseInt(req.params.idcurso);
+  const response = await db.query(
+    'INSERT INTO curso_materia (idcurso, idmateria) VALUES ($1, $2)',
+    [ cursoId, materiaId ],
+  );
+
+  res.status(201).send({
+    message: 'Curso_Materia added successfully!',
+    body: {
+      curso_materia: { cursoId, materiaId },
+    },
+  });
 };
