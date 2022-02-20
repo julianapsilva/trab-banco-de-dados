@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-top: 4rem;
 }
 
 .App-logo {
@@ -35,4 +36,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.btn {
+    display: block;
+    padding: 7px 25px;
+    background: #87f;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.btn:hover{
+    transition: all 0.3s;
+    transform: scale(1.03);
 }
