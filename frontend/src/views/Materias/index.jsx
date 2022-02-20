@@ -1,27 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './style.css'
 import Modal from '../Modal'
+import api from '../../services/api'
 
 export const Materias = () => {
-  const dados = [
-    {
-      id: 1, nome: 'Banco de dados', cargahoraria: 60,
-      descricao: 'descricao', planodecurso: 'plano.pdf'
-    },
-    {
-      id: 2, nome: 'Estrutura de Dados II', cargahoraria: 60,
-      descricao: 'descricao', planodecurso: 'plano.pdf'
-    },
-  ]
+  const [dados, setDados] = useState([])
 
-  const handleDelete = () => {
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get('/materias')
+      setDados(data)
+    })()
+
+  }, [])
+
+  const handleDelete = (id, index) => {
     const confirm = window.confirm("Deseja realmente deletar?");
     if (confirm) {
-      // api.delete(`/redacao/${this.id}/delete`).then(
-      //   alert(
-      //     "Matéria deletada com sucesso!"
-      //   )
-      // )
+      api.delete(`/materias/${id}`).then(
+        dados.splice(index, 1),
+        setDados([...dados]),
+        alert(
+          "Matéria deletada com sucesso!"
+        )
+      )
     }
   }
 
@@ -32,7 +34,7 @@ export const Materias = () => {
 
         <div className='header-table'>
           <h2>Lista de matérias</h2>
-          <Modal buttonName='Criar nova' type={1}/>
+          <Modal buttonName='Criar nova' type={1} />
         </div>
 
         <table>
@@ -52,8 +54,8 @@ export const Materias = () => {
                 <td>{planodecurso}</td>
                 <td>
 
-                  <Modal type={0} buttonName='Editar matéria' card={dados[index]}/>
-                  <button className='actions' onClick={handleDelete}>
+                  <Modal type={0} buttonName='Editar matéria' card={dados[index]} />
+                  <button className='actions' onClick={() => handleDelete(id, index)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                       stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                       class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline>
