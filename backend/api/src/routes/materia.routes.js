@@ -10,6 +10,9 @@ router.post('/materias', materiaController.createMateria);
 // ==> Rota responsável por listar todas as 'Materias': (GET): localhost:3000/api/materias
 router.get('/materias', materiaController.listAllMaterias);
 
+// ==> Rota responsável por listar todas as 'Materias' filtrado por 'Curso' pelo 'Id' (GET): localhost:3000/api/materias
+router.get('/materiascurso/:id', materiaController.listAllMateriasCurso);
+
 // ==> Rota responsável por selecionar 'Materia' pelo 'Id': (GET): localhost:3000/api/materias/:id
 router.get('/materias/:id', materiaController.findMateriaById);
 

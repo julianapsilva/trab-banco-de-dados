@@ -1,0 +1,165 @@
+insert into curso (nome, grade, descricao) values 
+    ('Ciência da Computação','gradeCC.pdf','Capacita desenvolvedores.'),
+    ('Matemática','gradeMat.pdf','Forma professores de matemática'),
+    ('Estatística','gradeEst.pdf','Forma estatísticos'),
+    ('Química','gradeQuim.pdf','Forma químicos'),
+    ('Engenharia de Software','gradeES.pdf','Forma engenheiros de software'),
+    ('Engenharia Computacional','gradeEC.pdf','Forma engenheiros computacionais'),
+    ('Engenharia de Produção','gradeEP.pdf','Forma engenheiros de produção');
+insert into materia (nome, descricao, cargaHoraria, planoDeCurso) values
+    ('Banco de dados','Descricao Banco de dados','60','plano.pdf'),
+    ('Estrutura de Dados II','Descricao Estrutura de Dados II','60','plano.pdf'),
+    ('Algebra Linear','Descricao Algebra Linear','60','plano.pdf'),
+    ('Calculo de Probabilidades','Descricao Calculo de Probabilidades','60','plano.pdf'),
+    ('Pesquisa Operacional','Descricao Pesquisa Operacional','60','plano.pdf'),
+    ('Cálculo II','Descricao Cálculo II','60','plano.pdf'),
+    ('Geometria Analítica','Descricao Geometria Analítica','60','plano.pdf'),
+    ('Química Fundamental','Descricao Química Fundamental','60','plano.pdf'),
+    ('Ecologia','Descricao Ecologia','60','plano.pdf'),
+    ('Algoritmos','Descricao Algoritmos','60','plano.pdf');
+insert into usuario (login, senha, email, nome, idade, telefone, endereco, cpf) values   
+	('admin1','123','admin@admin.com','admilson', 20, 32323232, 'rua bairro', 12345678901),
+	('prof','123','prof@admin.com','felipe', 25, 32325656, 'rua bairro', 12378912345),
+	('aluno1','123','aluno@admin.com','joao', 18, 32123456, 'rua bairro', 78945636989),
+	('aluno2','123','aluno2@admin.com','maria', 18, 32123456, 'rua bairro', 11111178989),
+	('aluno3','123','aluno3@admin.com','thiago', 18, 12345678, 'rua bairro', 78945712345),
+	('aluno5','123','aluno4@admin.com','lucas', 18, 32123451, 'rua bairro', 78945456787),
+	('aluno6','123','aluno5@admin.com','barbara', 18, 32123452, 'rua bairro', 74568989457),
+	('aluno7','123','aluno6@admin.com','andre', 18, 32123453, 'rua bairro', 78945123457),
+	('aluno8','123','aluno7@admin.com','juliana', 18, 32123454, 'rua bairro', 78456899457),
+	('prof2','123','prof2@admin.com','kenned', 30, 32123454, 'rua bairro', 12356899457),
+	('prof3','123','prof3@admin.com','ney', 33, 32123454, 'rua bairro', 12356899457),
+	('prof4','123','prof4@admin.com','luciana', 32, 32123454, 'rua bairro', 12356899457),
+	('admin2','123','admin2@admin.com','Maria', 50, 32123456, 'rua bairro', 12356899458);
+insert into administrador (idUser) values
+    (1),
+    (13);
+insert into professor (curriculo, idUser)  values
+    ('mestrado', 2), 
+    ('doutorado', 10),
+    ('mestrado', 11),  
+    ('mestrado', 12); 
+insert into aluno (matricula, idUser, idCurso) values 
+    (202000010,3, 2),
+    (202000011, 4, 4),
+    (202000012, 9, 1),
+    (202000013, 5, 5),
+    (202000014, 6, 7),
+    (202000015, 7, 6),
+    (202000016, 8, 1);
+insert into administrador_curso (idAdministrador, idCurso) values
+    (1, 1),
+    (2, 3),
+    (1, 5),
+    (2, 2),
+    (2, 4),
+    (1, 6),
+    (1, 7);
+insert into administrador_materia (idAdministrador, idMateria) values
+    (1, 1),
+    (1, 2),
+    (2, 3),
+    (2, 4),
+    (1, 5),
+    (1, 6),
+    (1, 7),
+    (2, 8),
+    (2, 9),
+    (1, 10);
+insert into aula (material, tempoDuracao, video, idProfessor, idMateria) values 
+    ('Material de apoio.pdf', 25.2, 'youtube.com/teste', 1, 10 ),
+    ('Material de apoio.pdf', 35.2, 'youtube.com/teste1', 2, 1),
+    ('Material de apoio.pdf', 37.2, 'youtube.com/teste2', 2, 1),
+    ('Material de apoio.pdf', 15.2, 'youtube.com/teste3', 3, 3),
+    ('Material de apoio.pdf', 32.9, 'youtube.com/teste4', 1, 7),
+    ('Material de apoio.pdf', 45.2, 'youtube.com/teste5', 2, 2),
+    ('Material de apoio.pdf', 57.2, 'youtube.com/teste6', 3, 4),
+    ('Material de apoio.pdf', 28.2, 'youtube.com/teste7', 4, 6),
+    ('Material de apoio.pdf', 45.2, 'youtube.com/teste8', 1, 8),
+    ('Material de apoio.pdf', 31.6, 'youtube.com/teste9', 3, 9),
+    ('Material de apoio.pdf', 39.2, 'youtube.com/teste10', 4, 5),
+    ('Material de apoio.pdf', 56.2, 'youtube.com/teste11', 1, 7);
+insert into frequencia (valor, idAluno, idAula) values 
+    (100, 6, 1),
+    (0, 1, 5),
+    (100, 5, 10),
+    (0, 1, 12),
+    (100, 4, 6);
+insert into nota(tipo, total, valor, idProfessor, idAluno) values 
+    ('Discursiva', 10.0, 9.0, 3, 3),
+    ('Discursiva', 10.0, 7.0, 2, 6),
+    ('Discursiva', 10.0, 6.0, 1, 2),
+    ('Discursiva', 10.0, 5.0, 1, 7),
+    ('Discursiva', 10.0, 10.0, 3, 5);
+insert into atividade (descricao, anexo, idMateria, idProfessor,  idAluno, idNota) values 
+    ('Prova de Algebra Linear', 'anexo.pdf', 3, 3, 3, 1),
+    ('Trabalho de Banco de dados', 'anexo3.pdf', 1, 2, 6, 2),
+    ('Prova de Química Fundamental', 'anexo4.pdf', 8, 1, 2, 3),
+    ('Prova de Algoritmos', 'anexo2.pdf', 10, 1, 7, 4),
+    ('Trabalho de Ecologia', 'anexo5.pdf', 9, 3, 5, 5);
+insert into prova (idAtiv) values
+    (3),
+    (1),
+    (4);
+insert into trabalho (idAtiv) values
+    (2),
+    (5);
+insert into forum(titulo, idMateria) values
+    ('Forum Banco de Dados', 1),
+    ('Forum de Estrutura de Dados', 2 ),
+    ('Forum de Algebra Linear', 3);
+insert into topico (titulo, data, texto, idUser, idForum) values
+    ('Discussão sobre algoritmos de hash', make_date(2022, 01, 17) , 'descricao', 9, 1 ),
+    ('Discussão sobre algoritmos de ordenação',make_date(2022, 01, 17), 'descricao', 7, 3),
+    ('Discussão sobre complexidade', make_date(2022, 01, 17) , 'descricao', 9, 1 );
+insert into post (data, texto, idUser, idTopico) values
+    (make_date(2022, 01, 17) , 'descricao', 5, 1 ),
+    (make_date(2022, 01, 17), 'descricao', 6, 3),
+    (make_date(2022, 01, 17) , 'descricao', 6, 1 );
+insert into curso_materia (idCurso, idMateria) values 
+    (1, 1),
+    (1, 2),
+    (1, 5),
+    (1, 10),
+    (2, 3),
+    (2, 7),
+    (3, 4),
+    (3, 6),
+    (4, 8),
+    (5, 1),
+    (5, 2),
+    (5, 5),
+    (5, 10),
+    (5, 6),
+    (6, 1),
+    (6, 2),
+    (6, 6),
+    (6, 10),
+    (6, 9),
+    (7, 3),
+    (7, 5),
+    (7, 9);
+insert into aluno_materia (idAluno, idMateria) values
+    (3, 1),
+    (3, 5),
+    (1, 3),
+    (1, 7),
+    (2, 8),
+    (4, 2),
+    (4, 5),
+    (5, 9),
+    (6, 1),
+    (6, 10),
+    (7, 2),
+    (7, 10);
+insert into professor_materia(idProfessor, idMateria) values
+    (1, 10),
+    (2, 1),
+    (3, 3),
+    (4, 5),
+    (1, 7),
+    (2, 2),
+    (3, 4),
+    (4, 6),
+    (1, 8),
+    (3, 9);

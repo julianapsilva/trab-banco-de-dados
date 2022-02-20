@@ -29,6 +29,15 @@ exports.listAllMaterias = async (req, res) => {
     res.status(200).send(response.rows);
 };
 
+// ==> Método responsável por listar todas as 'Materias' filtrado por 'Curso' pelo 'Id':
+exports.listAllMateriasCurso = async (req, res) => {
+    const cursoId = parseInt(req.params.id);
+    const response = await db.query(
+      'SELECT m.id, m.nome, m.cargahoraria, m.descricao, m.planodecurso FROM materia m INNER JOIN curso_materia cm ON m.id = cm.idmateria WHERE cm.idcurso = 1',
+    );
+    res.status(200).send(response.rows);
+};
+
 // ==> Método responsável por selecionar 'Materia' pelo 'Id':
 exports.findMateriaById = async (req, res) => {
     const materiaId = parseInt(req.params.id);
@@ -55,7 +64,7 @@ exports.updateMateriaById = async (req, res) => {
 // ==> Método responsável por excluir uma 'Materia' pelo 'Id':
 exports.deleteMateriaById = async (req, res) => {
     const materiaId = parseInt(req.params.id);
-    await db.query('DELETE FROM curso_materia cm INNER JOIN materia m ON cm.idmateria = m.id WHERE id = $1', 
+    await db.query('DELETE FROM materia WHERE id = $1', 
       [ materiaId ],
     );
   

@@ -1,0 +1,154 @@
+CREATE TABLE curso(
+    id serial primary key,
+    nome varchar(100) not null,
+    grade varchar not null,
+    descricao varchar not null
+);
+CREATE TABLE materia(
+    id serial primary key,
+    nome varchar(50) not null,
+    cargaHoraria integer not null,
+    descricao varchar not null,
+    planoDeCurso varchar not null
+);
+CREATE TABLE curso_materia(
+    idCurso integer not null,
+    idMateria integer not null,
+    foreign key(idCurso) references curso on delete cascade,
+    foreign key(idMateria) references materia on delete cascade,
+    primary key(idCurso, idMateria)
+);
+CREATE TABLE usuario(
+    id serial primary key,
+    login varchar(30) not null,
+    senha varchar(15) not null,
+    email varchar(30) not null, 
+    nome varchar(30) not null,
+    idade integer not null,
+    telefone varchar(15) not null,
+    endereco varchar not null,
+    cpf varchar(11) not null
+);
+CREATE TABLE administrador(
+    id serial primary key,
+    idUser integer not null,
+    foreign key(idUser) references usuario on delete cascade
+);
+CREATE TABLE aluno(
+    id serial primary key,
+    matricula integer not null,
+    idUser integer not null,
+    idCurso integer not null,
+    foreign key(idUser) references usuario on delete cascade,
+    foreign key(idCurso) references curso on delete cascade
+);
+CREATE TABLE professor(
+    id serial primary key,
+    curriculo varchar not null,
+    idUser integer not null,
+    foreign key(idUser) references usuario on delete cascade
+);
+CREATE TABLE aluno_materia(
+    idAluno integer not null,
+    idMateria integer not null,
+    foreign key(idAluno) references aluno on delete cascade,
+    foreign key(idMateria) references materia on delete cascade,
+    primary key(idAluno, idMateria)
+);
+CREATE TABLE professor_materia(
+    idProfessor integer not null,
+    idMateria integer not null,
+    foreign key(idProfessor) references professor on delete cascade,
+    foreign key(idMateria) references materia on delete cascade,
+    primary key(idProfessor, idMateria)
+);
+CREATE TABLE administrador_materia(
+    idAdministrador integer not null,
+    idMateria integer not null,
+    foreign key(idAdministrador) references administrador on delete cascade,
+    foreign key(idMateria) references materia on delete cascade,
+    primary key(idAdministrador, idMateria)
+);
+CREATE TABLE administrador_curso (
+    idAdministrador integer not null,
+    idCurso integer not null,
+    foreign key(idAdministrador) references administrador on delete cascade,
+    foreign key(idCurso) references curso on delete cascade,
+    primary key(idAdministrador, idCurso)  
+);
+CREATE TABLE forum(
+    id serial primary key,
+    titulo varchar(100) not null,
+    idMateria integer not null,
+    foreign key(idMateria) references materia on delete cascade
+);
+CREATE TABLE topico(
+    id serial primary key,
+    titulo varchar(100) not null,
+    data date not null,
+    texto varchar not null,
+    idUser integer not null,
+    idForum integer not null,
+    foreign key(idUser) references usuario on delete cascade,
+    foreign key(idForum) references forum on delete cascade
+);
+CREATE TABLE post(
+    id serial primary key,
+    data date not null,
+    texto varchar not null,
+    idUser integer not null,
+    idTopico integer not null,
+    foreign key(idUser) references usuario on delete cascade,
+    foreign key(idTopico) references topico on delete cascade
+);
+CREATE TABLE nota(
+    id serial primary key,
+    tipo varchar(100) not null,
+    total float not null,
+    valor float not null,
+    idProfessor integer not null,
+    idAluno integer not null,
+    foreign key(idProfessor) references professor on delete cascade,
+    foreign key(idAluno) references aluno on delete cascade
+);
+CREATE TABLE atividade(
+    id serial primary key,
+    descricao varchar(200) not null,
+    anexo varchar(200) not null,
+    idMateria integer not null,
+    idProfessor integer not null,
+    idAluno integer not null,
+    idNota integer not null,
+    foreign key(idMateria) references materia on delete cascade,
+    foreign key(idProfessor) references professor on delete cascade,
+    foreign key(idAluno) references aluno on delete cascade,
+    foreign key(idNota) references nota on delete cascade
+);
+CREATE TABLE trabalho(
+    id serial primary key,
+    idAtiv integer not null,
+    foreign key(idAtiv) references atividade on delete cascade
+);
+CREATE TABLE prova(
+    id serial primary key,
+    idAtiv integer not null,
+    foreign key(idAtiv) references atividade on delete cascade
+);
+CREATE TABLE aula(
+    id serial primary key,
+    material varchar(200) not null,
+    tempoDuracao float not null,
+    video varchar(200) not null,
+    idProfessor integer not null,
+    idMateria integer not null,
+    foreign key(idProfessor) references professor on delete cascade,
+    foreign key(idMateria) references materia on delete cascade
+);
+CREATE TABLE frequencia(
+    id serial primary key,
+    valor integer not null,
+    idAluno integer not null,
+    idAula integer not null,
+    foreign key(idAluno) references aluno on delete cascade,
+    foreign key(idAula) references aula on delete cascade
+);
