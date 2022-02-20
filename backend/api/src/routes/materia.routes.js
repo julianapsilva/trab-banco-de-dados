@@ -1,8 +1,8 @@
-
 const router = require('express-promise-router')();
 const materiaController = require('../controllers/materia.controller');
 
-// ==> Definindo as rotas do CRUD - 'Materia':
+// ==> Rota de teste
+router.get('/ping', materiaController.Ping);
 
 // ==> Rota responsável por criar uma nova 'Materia': (POST): localhost:3000/api/materias
 router.post('/materias', materiaController.createMateria);
