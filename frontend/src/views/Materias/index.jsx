@@ -15,7 +15,7 @@ export const Materias = () => {
   }, [])
 
   const handleDelete = (id, index) => {
-    const confirm = window.confirm("Deseja realmente deletar?");
+    const confirm = window.confirm(`Deseja realmente deletar a matéria ${dados[index].nome}?`);
     if (confirm) {
       api.delete(`/materias/${id}`).then(
         dados.splice(index, 1),
