@@ -29,8 +29,11 @@ export const Materias = () => {
 
   const onSubmit = (create, edit) => {
     if (edit) {
+      const index = dados.findIndex(({ id }) => id === edit.id)
+      const updateDados = [...dados]
+      updateDados[index] = edit
       api.put(`/materias/${edit.id}`, edit).then(
-        setDados([...dados, edit])
+        setDados( updateDados)
       )
     }
     else {
