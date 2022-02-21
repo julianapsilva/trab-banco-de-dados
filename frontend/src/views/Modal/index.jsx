@@ -1,22 +1,12 @@
 import React, { useState } from "react";
 import "./style.css";
 
-export default function Modal({ buttonName, card, type }) {
+export default function Modal({ buttonName, card, type, onSubmit }) {
     const [modal, setModal] = useState(false);
-    const [input, setInput] = useState({ question: "", answer: "" });
-
-
-    const onChangeQuestion = (e) => {
-        let dummy = input;
-        dummy.question = e.target.value;
-        setInput(dummy)
-    }
-
-    const onChangeAnswer = (e) => {
-        let dummy = input;
-        dummy.answer = e.target.value;
-        setInput(dummy)
-    }
+    const [input, setInput] = useState({
+        nome: "", cargahoraria: 0,
+        descricao: "", planodecurso: ""
+    });
 
     const toggleModal = () => {
         setModal(!modal);
@@ -56,25 +46,30 @@ export default function Modal({ buttonName, card, type }) {
 
                         <label htmlFor="nameNewDeck">Nome da matéria</label>
                         <input type="text" name="frontNewCard" id="frontNewCard" placeholder="Insira o nome"
-                            defaultValue={card ? card.nome : ""} onChange={onChangeQuestion}
+                            defaultValue={card ? card.nome : ""}
+                            onChange={(r) => { setInput({ ...input, nome: r.target.value }) }}
                             onBlur={(r) => { if (card) { card.nome = r.target.value } }} />
 
                         <label htmlFor="nameNewDeck">Carga horária</label>
                         <input type="text" name="backNewCard" id="backNewCard" placeholder="Insira a carga horária"
-                            defaultValue={card ? card.cargahoraria : ""} onChange={onChangeAnswer}
-                            onBlur={(r) => { if (card) { card.answer = r.target.value } }} />
+                            defaultValue={card ? card.cargahoraria : ""}
+                            onChange={(r) => { setInput({ ...input, cargahoraria: r.target.value }) }}
+                            onBlur={(r) => { if (card) { card.cargahoraria = r.target.value } }} />
 
                         <label htmlFor="nameNewDeck">Descrição</label>
                         <input type="text" name="backNewCard" id="backNewCard" placeholder="Insira a descrição"
-                            defaultValue={card ? card.descricao : ""} onChange={onChangeAnswer}
-                            onBlur={(r) => { if (card) { card.answer = r.target.value } }} />
+                            defaultValue={card ? card.descricao : ""}
+                            onChange={(r) => { setInput({ ...input, descricao: r.target.value }) }}
+                            onBlur={(r) => { if (card) { card.descricao = r.target.value } }} />
 
                         <label htmlFor="nameNewDeck">Plano de curso</label>
                         <input type="text" name="backNewCard" id="backNewCard" placeholder="Insira o plano de curso"
-                            defaultValue={card ? card.planodecurso : ""} onChange={onChangeAnswer}
-                            onBlur={(r) => { if (card) { card.answer = r.target.value } }} />
+                            defaultValue={card ? card.planodecurso : ""}
+                            onChange={(r) => { setInput({ ...input, planodecurso: r.target.value }) }}
+                            onBlur={(r) => { if (card) { card.planodecurso = r.target.value } }} />
 
-                        <button className="btn btn-submit" onClick={() => console.log('submit')}>{buttonName}</button>
+                        <button className="btn btn-submit"
+                            onClick={() => onSubmit(input, card)}>{buttonName}</button>
 
                         <button className="CardModalCloseModal" onClick={toggleModal}>
                             X

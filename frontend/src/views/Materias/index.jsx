@@ -27,6 +27,19 @@ export const Materias = () => {
     }
   }
 
+  const onSubmit = (create, edit) => {
+    if (edit) {
+      api.put(`/materias/${edit.id}`, edit).then(
+        setDados([...dados, edit])
+      )
+    }
+    else {
+      api.post('/materias', create).then(
+        setDados([...dados, create])
+      )
+    }
+  }
+
   return (
     <div className='materias-wrapper'>
 
@@ -34,7 +47,7 @@ export const Materias = () => {
 
         <div className='header-table'>
           <h2>Lista de matérias</h2>
-          <Modal buttonName='Criar nova' type={1} />
+          <Modal buttonName='Criar nova' type={1} onSubmit={onSubmit} />
         </div>
 
         <table>
@@ -54,7 +67,7 @@ export const Materias = () => {
                 <td>{planodecurso}</td>
                 <td>
 
-                  <Modal type={0} buttonName='Editar matéria' card={dados[index]} />
+                  <Modal type={0} buttonName='Editar matéria' card={dados[index]} onSubmit={onSubmit} />
                   <button className='actions' onClick={() => handleDelete(id, index)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                       stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
